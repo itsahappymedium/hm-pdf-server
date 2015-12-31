@@ -1,0 +1,8 @@
+{
+  "maps" : [
+    {
+      "id" : "aoe",
+      "template" : "aoe_course_cert.handlebars"
+    }
+  ]
+}

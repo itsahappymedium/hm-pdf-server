@@ -1,0 +1,17 @@
+{
+  "name": "hm-pdf-gen",
+  "version": "1.0.0",
+  "description": "A lightweight server for generating PDFs using Handlebars templates",
+  "main": "server.js",
+  "author": "developers@itsahappymedium.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "handlebars": "^4.0.5",
+    "pdfkit": "^0.7.2",
+    "phantom": "^0.8.4"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
