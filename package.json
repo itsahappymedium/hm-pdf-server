@@ -4,14 +4,15 @@
   "description": "A lightweight server for generating PDFs using Handlebars templates",
   "main": "server.js",
   "scripts": {
-    "start" : "node server.js"
+    "start": "node server.js"
   },
   "author": "developers@itsahappymedium.com",
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.3",
     "handlebars": "^4.0.5",
-    "phantom": "^0.8.4"
+    "phantom": "^0.8.4",
+    "wkhtmltopdf": "^0.1.5"
   },
   "devDependencies": {
     "grunt": "^0.4.5"

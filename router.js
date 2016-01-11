@@ -14,16 +14,19 @@ router.get('/:id', function(req, res){
     if (typeof template === 'string' && template.length) {
       console.log('Successfully found template. Generating PDF with data...');
 
-      var pdf = renderer.genPdf(template, req.query);
-      if (pdf) console.log('Successfully generated PDF. Sending now...');
+      var pdf_location = renderer.genPdf(template, req.query);
+      console.log('Successfully generated PDF at ' + pdf_location + '. Sending now...');
 
-      res.send(pdf);
+      // FIXME: fix file routing bug
+      res.download(__dirname + '/' + pdf_location);
+
     } else {
       console.error('Failed to find template ' + id + ' for client');
       res.status(404).send('Not found');
     }
 });
 
+// Consult template_maps for id=>template_file matching
 function get_template_by_id( id ) {
   for (var i = 0; i < template_maps.length; i++) {
     var map = template_maps[i];
