@@ -1,8 +1,8 @@
 {
   "maps" : [
     {
-      "id" : "aoe",
-      "template" : "aoe_course_cert.handlebars"
+      "id" : "test",
+      "template" : "test_pdf.handlebars"
     }
   ]
 }
