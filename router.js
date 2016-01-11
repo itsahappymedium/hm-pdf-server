@@ -1,4 +1,5 @@
 var router = require('express').Router(),
+    renderer = require('./renderer'),
     template_maps = require('./config/template_maps.json').maps;
 
 // Read request to determine what PDF template to load
@@ -7,7 +8,8 @@ router.get('/:id', function(req, res){
       template = get_template_by_id(id);
 
     if (typeof template === 'string' && template.length) {
-      res.json(template);
+      var pdf = renderer.genPdf(template, req.body);
+      res.download(pdf);
     } else {
       res.status(404).send('Not found');
     }

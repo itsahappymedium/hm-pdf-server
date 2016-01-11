@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A lightweight server for generating PDFs using Handlebars templates",
   "main": "server.js",
+  "scripts": {
+    "start" : "node server.js"
+  },
   "author": "developers@itsahappymedium.com",
   "license": "ISC",
   "dependencies": {
