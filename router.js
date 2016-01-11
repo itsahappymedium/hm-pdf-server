@@ -7,10 +7,19 @@ router.get('/:id', function(req, res){
   var id = req.params.id,
       template = get_template_by_id(id);
 
+    console.log(); // Prepend newline to each request log
+    console.log('Template requested: ' + id);
+    console.log('Template Data: ', req.query);
+
     if (typeof template === 'string' && template.length) {
-      var pdf = renderer.genPdf(template, req.body);
-      res.download(pdf);
+      console.log('Successfully found template. Generating PDF with data...');
+
+      var pdf = renderer.genPdf(template, req.query);
+      if (pdf) console.log('Successfully generated PDF. Sending now...');
+
+      res.send(pdf);
     } else {
+      console.error('Failed to find template ' + id + ' for client');
       res.status(404).send('Not found');
     }
 });
