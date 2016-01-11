@@ -1,5 +1,6 @@
 {
   "port" : 4000,
+  "asset_dir" : "/public",
   "template_dir" : "./templates",
   "output_dir" : "./tmp"
 }

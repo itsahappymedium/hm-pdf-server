@@ -14,11 +14,7 @@ router.get('/:id', function(req, res){
     if (typeof template === 'string' && template.length) {
       console.log('Successfully found template. Generating PDF with data...');
 
-      var pdf_location = renderer.genPdf(template, req.query);
-      console.log('Successfully generated PDF at ' + pdf_location + '. Sending now...');
-
-      // FIXME: fix file routing bug
-      res.download(__dirname + '/' + pdf_location);
+      renderer.genPdf(template, req.query, sendFileUponCreation.bind(res));
 
     } else {
       console.error('Failed to find template ' + id + ' for client');
@@ -34,6 +30,15 @@ function get_template_by_id( id ) {
       return map.template;
     }
   }
+}
+
+// Async callback cuz file gen
+// Express response object bound to this
+function sendFileUponCreation( fileLocation ) {
+    console.log('Downloading: ' + fileLocation);
+
+    this.contentType('application/pdf');
+    this.download(fileLocation);
 }
 
 module.exports = router;

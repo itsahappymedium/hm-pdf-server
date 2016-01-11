@@ -12,14 +12,14 @@ var fs = require('fs');
 var Renderer = {
 
   // Glue everything together
-  genPdf : function(template, templateData) {
+  genPdf : function(template, templateData, cb) {
     try {
       var templateSource = this.getTemplateSource(template),
           compiledTemplateFcn = Handlebars.compile(templateSource),
           compiledTemplate = compiledTemplateFcn(templateData);
 
-      var pdf = this.convertHTMLToPDF(compiledTemplate);
-      return pdf;
+      this.convertHTMLToPDF(compiledTemplate, cb);
+      
     } catch (e) {
       return e;
     }
@@ -31,14 +31,16 @@ var Renderer = {
     return fs.readFileSync(path, 'utf8');
   },
 
-  convertHTMLToPDF : function(html, callback) {
+  convertHTMLToPDF : function(html, cb) {
     var filename = Crypto.randomBytes(20).toString('hex') + ".pdf",
         filePath = config.output_dir + "/" + filename;
 
-    wkhtmltopdf_opts['output'] = filePath;
-    wkhtmltopdf(html, wkhtmltopdf_opts);
+    console.log('Rendering PDF into file: ' + filePath);
 
-    return filePath;
+    wkhtmltopdf_opts['output'] = filePath;
+    wkhtmltopdf(html, wkhtmltopdf_opts, function(){
+      cb(filePath);
+    });
   }
 
 };

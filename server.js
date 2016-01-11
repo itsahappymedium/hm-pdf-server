@@ -11,7 +11,7 @@ var SERVER_PORT = process.env.port || config.port,
 // Server Setup
 var server = Express();
 server.set('view engine', 'handlebars');
-server.use(Express.static(process.cwd() + '/public'));
+server.use(Express.static(process.cwd() + config.asset_dir));
 
 // Router
 server.use('/pdf', require('./router'));
