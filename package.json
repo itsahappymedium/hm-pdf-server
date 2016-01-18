@@ -1,6 +1,6 @@
 {
   "name": "hm-pdf-gen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight server for generating PDFs using Handlebars templates",
   "main": "server.js",
   "scripts": {

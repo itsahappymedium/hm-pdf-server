@@ -12,14 +12,15 @@ var fs = require('fs');
 var Renderer = {
 
   // Glue everything together
-  genPdf : function(template, templateData, cb) {
+  genPdf : function(template, templateData) {
     try {
       var templateSource = this.getTemplateSource(template),
           compiledTemplateFcn = Handlebars.compile(templateSource),
           compiledTemplate = compiledTemplateFcn(templateData);
 
-      this.convertHTMLToPDF(compiledTemplate, cb);
-      
+      var fileSteam = this.convertHTMLToPDF(compiledTemplate);
+      return fileSteam;
+
     } catch (e) {
       return e;
     }
@@ -31,16 +32,9 @@ var Renderer = {
     return fs.readFileSync(path, 'utf8');
   },
 
-  convertHTMLToPDF : function(html, cb) {
-    var filename = Crypto.randomBytes(20).toString('hex') + ".pdf",
-        filePath = config.output_dir + "/" + filename;
-
-    console.log('Rendering PDF into file: ' + filePath);
-
-    wkhtmltopdf_opts['output'] = filePath;
-    wkhtmltopdf(html, wkhtmltopdf_opts, function(){
-      cb(filePath);
-    });
+  convertHTMLToPDF : function(html) {
+    console.log('Rendering PDF to file steam...');
+    return wkhtmltopdf(html, wkhtmltopdf_opts);
   }
 
 };

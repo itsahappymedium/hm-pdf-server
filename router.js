@@ -14,7 +14,15 @@ router.get('/:id', function(req, res){
     if (typeof template === 'string' && template.length) {
       console.log('Successfully found template. Generating PDF with data...');
 
-      renderer.genPdf(template, req.query, sendFileUponCreation.bind(res));
+      var fileStream = renderer.genPdf(template, req.query, sendFileUponCreation.bind(res));
+      if (fileStream) {
+        res.setHeader("Content-disposition", 'attachment; filename=' + id + '.pdf');
+        res.setHeader("content-type", "file/pdf");
+        fileStream.pipe(res);
+      } else {
+          console.error('Failed to build stream ' + id);
+          res.status(500).send();
+      }
 
     } else {
       console.error('Failed to find template ' + id + ' for client');
